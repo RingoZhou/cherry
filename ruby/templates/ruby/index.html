@@ -1,0 +1,19 @@
+<a href="/ruby/{{page_id_pre}}">上一页</a>
+<br>
+<a href="/ruby/{{page_id_post}}">下一页</a>
+{% if latest_list %}
+    <ul>
+    {% for item in latest_list %}
+        <li>
+	        <a href="{{item.url}}">{{ item.url }}</a>
+	        <br>
+	        <a href="{{item.url}}"><img class="lazy" src="{{item.img}}" /></a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No polls are available.</p>
+{% endif %}
+<a href="/ruby/{{page_id_pre}}">上一页</a>
+<br>
+<a href="/ruby/{{page_id_post}}">下一页</a>
