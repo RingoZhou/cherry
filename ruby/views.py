@@ -10,16 +10,18 @@ def index(request):
 	return HttpResponse("Hello Oct Holiday")
 
 def detail(request, page_id):
-	r = requests.get('https://hpjav.tv/category/censored/page/'+str(page_id))
-	pattern = re.compile('<img class="lazy" data-original="(.*?)&url=(.*?)" src="(.*?)" alt="(.*?)">', re.S)
+	r = requests.get('https://hpjav.tv/category/censored/page/'+str(page_id), verify=False)
+	pattern = re.compile('<img (.*?) data-original="(.*?)" src="(.*?)" alt="(.*?)">', re.S)
 	items = re.findall(pattern, r.text)
 
 	latest_list = []
 	for item in items:
-		print(item[1], item[3])
+		#print(item[1], item[3])
 		new_item = {}
-		new_item['url'] = "https://www.javbus.com/" + item[3]
+		new_item['url'] = "https://www.javbus.com/" + item[3].split()[0]
+		new_item['url_watch'] = "https://bejav.net/" + item[3].split()[0]
 		new_item['img'] = item[1]
+		new_item['img_big'] = item[1].replace("-s", "")
 		latest_list.append(new_item)
 	template = loader.get_template('ruby/index.html')
 	context = {
